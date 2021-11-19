@@ -40,12 +40,12 @@ export default defineComponent({
   },
   setup (props) {
     const cardData = reactive([])
-    const reload = ref(false)
+    const reload = ref(true)
     const page = computed(() => props.pages)
 
     ipcRenderer.send(page.value.name + '-message', {
-      url: page.value.url,
-      reload: reload.value
+      url: page.value.url
+      // reload: reload.value
     })
 
     ipcRenderer.on(page.value.name + '-reply', (event, arg) => {

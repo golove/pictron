@@ -29,6 +29,7 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
     for (const srcs of params.allImgData) {
       event.sender.send(ipcName + '-reply', srcs)
       if (srcs === params.allImgData[params.allImgData.length - 1]) {
+        event.sender.send(ipcName + '-replyFlag', false)
         showNotification(ipcName + params.allImgData.length, '全部加载完成')
       }
     }
@@ -43,6 +44,7 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
       if (srcs) {
         event.sender.send(ipcName + '-reply', srcs)
         if (e === hrefs[hrefs.length - 1]) {
+          event.sender.send(ipcName + '-replyFlag', false)
           showNotification(ipcName + hrefs.length, '全部加载完成')
         }
       }
