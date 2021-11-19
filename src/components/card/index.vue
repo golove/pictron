@@ -22,6 +22,7 @@
 import { computed, defineComponent, ref, reactive } from 'vue'
 import { useStore } from '../../store'
 import actTool from './actronTool.vue'
+import { ipcRenderer } from 'electron'
 export default defineComponent({
   name: 'Card',
   components: {
@@ -71,6 +72,7 @@ export default defineComponent({
       })
       store.commit('SET_ALBUMFLAG', true)
       // console.log(store.state.albumFlag)
+      ipcRenderer.send('newwindow')
     }
 
     const showlabel = computed(() => props.label)

@@ -25,7 +25,7 @@ export default defineComponent({
 }
 
 .loadMoreBtnStyle{
-  content: 'load more';
+  cursor: pointer;
   width: 30vw;
   height: 4vh;
   font-size: 1.2rem;
@@ -38,6 +38,16 @@ export default defineComponent({
 .loadMoreBtnStyle:hover{
   background:rgba(255, 0, 106,1);
   color: aliceblue;
+}
+.btndisabledstyle{
+   width: 30vw;
+  height: 4vh;
+  font-size: 1.2rem;
+  margin: 5px;
+  color: rgb(255, 0, 106);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
 }
 html::-webkit-scrollbar {
   width: 0px;

@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, Notification } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, Notification, dialog } from 'electron'
 // import { join } from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
@@ -123,7 +123,6 @@ async function createWindow () {
     frame: false,
     // titleBarStyle: 'hidden',
     webPreferences: {
-
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: true,
@@ -155,7 +154,25 @@ async function createWindow () {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+  win.on('close', (e) => {
+    e.preventDefault()
+    dialog.showMessageBox(win, {
+      type: 'warning',
+      title: 'close',
+      message: 'are you sure close this window',
+      buttons: ['cancel', 'sure']
+    }).then((index) => {
+      console.log(index)
+      if (index.response) {
+        app.exit()
+      }
+    })
+  })
 }
+
+ipcMain.on('newwindow', (event, arg) => {
+  console.log(arg)
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
