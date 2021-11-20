@@ -1,5 +1,6 @@
 <template>
   <div class="contair" :class="albumFlag ? 'contextscrollhide' : 'context'">
+     <!-- <tab-bar /> -->
     <router-view />
   </div>
   <album class="album" />
@@ -8,6 +9,7 @@
 <script>
 import { computed, defineComponent } from 'vue'
 // import sideItem from './sideItem.vue'
+// import tabBar from '../components/tabBar/index.vue'
 import { useStore } from '../store'
 import album from '../components/album/index.vue'
 export default defineComponent({
@@ -24,9 +26,10 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
+$a:'38px';
 .contair {
   position: absolute;
-  top: 37px;
+  top: 38px;
   height: 96vh;
   width: 100vw;
 

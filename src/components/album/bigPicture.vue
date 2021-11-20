@@ -53,6 +53,7 @@
 </template>
 
 <script>
+
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 
 export default defineComponent({
@@ -69,8 +70,16 @@ export default defineComponent({
     const pictureList = computed(() => props.pictures)
     const pindex = computed(() => props.picIndex)
     function showthis (i) {
-      i < pindex.value ? (arrowFlag.value = false) : (arrowFlag.value = true)
-      goto(i)
+      // i < pindex.value ? (arrowFlag.value = false) : (arrowFlag.value = true)
+      if (i < pindex.value) {
+        arrowFlag.value = false
+        goto(i)
+      } else if (i > pindex.value) {
+        arrowFlag.value = true
+        goto(i)
+      } else {
+        return false
+      }
     }
 
     const playFlag = ref(false)
@@ -80,6 +89,8 @@ export default defineComponent({
         play()
       }
     }
+
+    const delay = ref(3000)
     function play (picIndex) {
       playFlag.value = !playFlag.value
       arrowFlag.value = true
@@ -93,7 +104,7 @@ export default defineComponent({
         } else {
           clearInterval(interval)
         }
-      }, 5000)
+      }, delay.value)
     }
 
     const arrowFlag = ref(false)
@@ -135,6 +146,23 @@ export default defineComponent({
     onMounted(() => {
       setScrollLeft(pindex.value)
     })
+
+    document.onkeydown = function (e) {
+      // console.log(e)
+      if (e.code === 'ArrowRight') {
+        arrowpicture(true, pindex.value)
+      } else if (e.code === 'ArrowLeft') {
+        arrowpicture(false, pindex.value)
+      } else if (e.code === 'Enter' || e.code === 'Space') {
+        play(pindex.value)
+      }
+      // else if (typeof parseInt(e.key) === 'number') {
+      // showthis(parseInt(e.key))
+      // delay.value = 500 + (parseInt(e.key) * 500)
+      // play(pindex.value)
+      // console.log(delay.value)
+      // }
+    }
 
     return {
       isShow,
