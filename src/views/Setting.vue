@@ -25,6 +25,15 @@
             <div class="version" id="electron-version"></div>
             <div class="version">Author:Golve</div>
         </div>
+        <h2>Comment</h2>
+        <div class="comment">
+          <div>
+ <input type="text" placeholder="nikname">
+          <input type="email" placeholder="xxx@xx.com">
+          </div>
+
+          <textarea name="comment" id="comment" ></textarea>
+        </div>
     </div>
 </template>
 

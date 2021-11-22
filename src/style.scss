@@ -107,6 +107,29 @@ $heighty: 38px;
             margin: 0.3rem 0;
         }
     }
+    .comment{
+        div{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            input{
+                height: 35px;
+                width: 49%;
+                border-radius: 8px;
+                border-style: none;
+            }
+        }
+        textarea{
+            min-width: 100%;
+            max-width: 100%;
+            min-height:120px;
+            border-radius: 8px;
+            border-style: none;
+            // &:focus{
+            //     outline: $primary length solid ;
+            // }
+        }
+    }
 }
 
 .tabbar {
