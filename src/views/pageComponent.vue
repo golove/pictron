@@ -12,9 +12,9 @@
       :key="item.title + index"
       :item="item"
     />
-  </div>
 
-  <button :class="reload?'btndisabledstyle':'loadMoreBtnStyle'" @click="reloadMethod" :disabled="reload">
+  </div>
+   <button :class="reload?'btndisabledstyle':'loadMoreBtnStyle'" @click="reloadMethod" :disabled="reload">
     {{ reload ? "loading..." : "load more" }}
   </button>
 </template>

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref, watch, getCurrentInstance } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '../../store'
 import bigPicture from './bigPicture.vue'
 
@@ -92,7 +92,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-@import "./album.scss";
-</style>

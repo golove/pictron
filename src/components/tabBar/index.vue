@@ -36,7 +36,7 @@ export default defineComponent({
       { title: '自拍', path: '/selfie', icon: '#camera' },
       { title: '露出', path: '/passion', icon: '#tree' },
       { title: '收藏', path: '/collect', icon: '#heart' },
-      { title: '关于', path: '/about', icon: '#about' }
+      { title: '设置', path: '/setting', icon: '#setting' }
     ]
     const route = useRoute()
     // console.log(route)
@@ -55,6 +55,3 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="scss">
-@import './tabBar.scss';
-</style>

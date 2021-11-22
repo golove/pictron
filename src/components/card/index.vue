@@ -89,7 +89,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang='scss'>
-@import "./card.scss";
-</style>
