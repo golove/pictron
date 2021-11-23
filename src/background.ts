@@ -7,7 +7,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 
 import type ImgSpider from './model/JsSpider'
 import MangeData from './model/Mange'
-
+import getPage from './model/request'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -35,11 +35,11 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
     }
   } else {
     console.log('spider')
-    const data = await params.getPage(content.url)
+    const data = await getPage(content.url)
 
     const hrefs = params.findHref(data.res)
     for (const e of hrefs) {
-      const html = await params.getPage(e)
+      const html = await getPage(e)
       const srcs = params.findImgsrc(html.res, e)
       if (srcs) {
         event.sender.send(ipcName + '-reply', srcs)
@@ -52,12 +52,12 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
   }
   if (content.reload) {
     console.log('spider')
-    const data = await params.getPage(content.url)
+    const data = await getPage(content.url)
 
     const hrefs = params.findHref(data.res)
     if (hrefs.length > 0) {
       for (const e of hrefs) {
-        const html = await params.getPage(e)
+        const html = await getPage(e)
         const srcs = params.findImgsrc(html.res, e)
         if (srcs) {
           event.sender.send(ipcName + '-reply', srcs)
@@ -114,7 +114,8 @@ ipcMain.on('Collect-message', (event, content) => {
 })
 
 ipcMain.on('changeActool', (event, content) => {
-  MangeImg[content.classify].findImgCard(content.url, content.actName)
+  const flag = MangeImg[content.classify].findImgCard(content.url, content.actName)
+  event.sender.send(content.actName + '-reply', flag)
 })
 
 async function createWindow () {

@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '../../store'
 import bigPicture from './bigPicture.vue'
@@ -53,16 +53,16 @@ export default defineComponent({
 
     const bigPictureFlag = ref(false)
     const picIndex = ref(0)
-    function showOrCloseBigPicture (index) {
+    function showOrCloseBigPicture (index:number) {
       picIndex.value = index
       bigPictureFlag.value = !bigPictureFlag.value
       // console.log('album:' + picIndex.value)
     }
-    function setPicIndex (index) {
+    function setPicIndex (index:number) {
       picIndex.value = index
       // console.log('album:' + picIndex.value)
     }
-    const albumMasonryId = ref('album')
+    // const albumMasonryId = ref('album')
     // console.log(internalInstance.appContext.config.globalProperties.$redrawVueMasonry)
     // internalInstance.appContext.config.globalProperties.$redrawVueMasonry(albumMasonryId.value)
     // watchEffect(() => {
@@ -86,8 +86,7 @@ export default defineComponent({
       albums,
       albumTitle,
       picIndex,
-      setPicIndex,
-      albumMasonryId
+      setPicIndex
     }
   }
 })

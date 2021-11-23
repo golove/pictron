@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent, ref, reactive } from 'vue'
 import { useStore } from '../../store'
 import actTool from './actronTool.vue'
@@ -49,7 +49,7 @@ export default defineComponent({
         ],
         star: 0,
         collect: false,
-        delete: false,
+        deleted: false,
         download: false
       })
     },

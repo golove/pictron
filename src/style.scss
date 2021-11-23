@@ -1,9 +1,9 @@
 $primary: rgb(255, 0, 106);
-$lightPrimary:rgb(255, 228, 232);
+$lightPrimary: rgb(255, 228, 232);
 $white: white;
 $opcityWhite: rgba(255, 255, 255, 0.8);
 $opcityWhite3: rgba(255, 255, 255, 0.3);
-$gray:rgb(237, 235, 243);
+$gray: rgb(237, 235, 243);
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -11,7 +11,6 @@ $gray:rgb(237, 235, 243);
     top: 0;
     text-align: center;
     user-select: none;
-
 }
 
 .loadMoreBtnStyle {
@@ -58,7 +57,6 @@ $heighty: 38px;
     top: $heighty;
     width: 100vw;
     height: calc(100vh - $heighty);
-
 }
 .contextscrollhide {
     overflow: hidden;
@@ -107,22 +105,22 @@ $heighty: 38px;
             margin: 0.3rem 0;
         }
     }
-    .comment{
-        div{
+    .comment {
+        div {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
-            input{
+            input {
                 height: 35px;
                 width: 49%;
                 border-radius: 8px;
                 border-style: none;
             }
         }
-        textarea{
+        textarea {
             min-width: 100%;
             max-width: 100%;
-            min-height:120px;
+            min-height: 120px;
             border-radius: 8px;
             border-style: none;
             // &:focus{
@@ -308,6 +306,27 @@ $heighty: 38px;
             width: 24px;
             height: 24px;
             cursor: pointer;
+        }
+        @keyframes mymove {
+            from {
+                transform: rotate(0);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes mymove /*Safari and Chrome*/ {
+            from {
+                transform: rotate(0);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        svg.svgAnimate {
+            animation: mymove 3s infinite;
+            -webkit-animation: mymove 3s infinite; /*Safari and Chrome*/
         }
         svg.collectstyled {
             fill: $primary;
@@ -678,7 +697,6 @@ $heighty: 38px;
         width: 19.3vw;
         margin: 0 2px;
     }
-
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -687,19 +705,16 @@ $heighty: 38px;
         width: 16.1vw;
         margin: 0 2px;
     }
-
 }
 @media only screen and (min-width: 1500px) {
     .item {
         width: 13.9vw;
         margin: 0 2px;
     }
-
 }
 @media only screen and (min-width: 1800px) {
     .item {
         width: 10.8vw;
         margin: 0 2px;
     }
-
 }

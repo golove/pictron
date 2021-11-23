@@ -28,8 +28,8 @@ class MangeData {
     }
 
     getAllDelete ():Array<IData> {
-      return [...this.Beauty.deleteData, ...this.Ustyle.deleteData, ...this.Carton.deleteData,
-        ...this.Leisi.deleteData, ...this.Selfie.deleteData, ...this.Passion.deleteData]
+      return [...this.Beauty.deletedData, ...this.Ustyle.deletedData, ...this.Carton.deletedData,
+        ...this.Leisi.deletedData, ...this.Selfie.deletedData, ...this.Passion.deletedData]
     }
 }
 

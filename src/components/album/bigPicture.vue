@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 
@@ -60,16 +60,30 @@ export default defineComponent({
   name: 'bigPicture',
   props: {
     pictures: {
-      type: Array
+      type: Array,
+      default: () => [
+        'https://p99.ajpiczs.com/i/2021/10/11/p6y8du.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6y4wy.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6yjf9.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6yrdk.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6z0cd.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6z9ac.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6zotd.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6zops.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p6zx5w.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p70cpp.jpg',
+        'https://p99.ajpiczs.com/i/2021/10/11/p70kgl.jpg'
+      ]
     },
     picIndex: {
-      type: Number
+      type: Number,
+      default: () => 0
     }
   },
   setup (props, context) {
     const pictureList = computed(() => props.pictures)
     const pindex = computed(() => props.picIndex)
-    function showthis (i) {
+    function showthis (i:number) {
       // i < pindex.value ? (arrowFlag.value = false) : (arrowFlag.value = true)
       if (i < pindex.value) {
         arrowFlag.value = false
@@ -86,13 +100,18 @@ export default defineComponent({
     function closeBigPicture () {
       context.emit('changeFlag', 0)
       if (playFlag.value) {
-        play()
+        play(0, false)
       }
     }
 
     const delay = ref(3000)
-    function play (picIndex) {
-      playFlag.value = !playFlag.value
+    function play (picIndex:number, flag?:boolean) {
+      if (flag === undefined) {
+        playFlag.value = !playFlag.value
+      } else {
+        playFlag.value = flag
+      }
+
       arrowFlag.value = true
       const interval = setInterval(() => {
         if (playFlag.value) {
@@ -108,7 +127,7 @@ export default defineComponent({
     }
 
     const arrowFlag = ref(false)
-    function arrowpicture (flag, picIndex) {
+    function arrowpicture (flag:boolean, picIndex:number) {
       arrowFlag.value = flag
       if (flag) {
         picIndex++
@@ -125,7 +144,7 @@ export default defineComponent({
     }
 
     const isShow = ref(true)
-    function goto (index) {
+    function goto (index:number) {
       isShow.value = false
 
       const tout = setTimeout(() => {
@@ -135,7 +154,7 @@ export default defineComponent({
       }, 10)
     }
 
-    function setScrollLeft (n) {
+    function setScrollLeft (n:number) {
       const actDom = document.getElementsByClassName('smPicture')[0]
       actDom.scrollLeft = n * 45
     }
