@@ -1,4 +1,4 @@
-import path from 'path'
+import { join } from 'path'
 import fs from 'fs'
 import request from 'request'
 import type { IData } from './type'
@@ -31,7 +31,7 @@ function showNotification (title:string, body:string) {
   new Notification({ title, body }).show()
 }
 function downloadPicture (data:IData): boolean|undefined {
-  const picDir = path.join(__dirname, `./pictures/${data.title}/`)
+  const picDir = join(__dirname, `./pictures/${data.title}/`)
   fs.mkdir(picDir, { recursive: true }, (err) => {
     console.log(err)
   })
@@ -40,7 +40,7 @@ function downloadPicture (data:IData): boolean|undefined {
     const opts = { url: e, headers }
     const ext = e.split('/').pop()
     const res = request(opts)
-    res.pipe(fs.createWriteStream(path.join(picDir, `${ext}`)))
+    res.pipe(fs.createWriteStream(join(picDir, `${ext}`)))
     // console.log(e)
     if (e === last) {
       showNotification(data.title, '已完成下载')

@@ -4,16 +4,21 @@ $white: white;
 $opcityWhite: rgba(255, 255, 255, 0.8);
 $opcityWhite3: rgba(255, 255, 255, 0.3);
 $gray: rgb(237, 235, 243);
+html,body{
+    padding: 0;
+    margin:0;
+}
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    top: 0;
     width: 100vw;
     height: 100vh;
+    position: absolute;
     overflow: hidden;
     text-align: center;
     user-select: none;
+    // border-radius: 12px;
 }
 
 .loadMoreBtnStyle {

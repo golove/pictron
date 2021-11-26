@@ -1,7 +1,7 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, Notification, dialog } from 'electron'
-// import { join } from 'path'
+import { app, protocol, BrowserWindow, ipcMain, Notification, dialog, nativeImage, Tray, Menu } from 'electron'
+import { join } from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
@@ -134,6 +134,34 @@ async function createWindow () {
 
     }
   })
+
+  // 隐藏菜单栏
+  // mainWindow.removeMenu();
+
+  // 托盘
+  const root = join(__dirname, '../')
+  console.log(root)
+  const image = nativeImage.createFromPath(join(root, './build/icons/icon2.png'))
+  const tray = new Tray(image.resize({ width: 16, height: 16 }))
+  const contextMenu = Menu.buildFromTemplate([
+    { label: '打开', type: 'radio', click: () => onChangeTrayMenu('show') },
+    { label: '退出', type: 'radio', click: () => onChangeTrayMenu('quit') }
+  ])
+  tray.setToolTip('desktop-tools') // 托盘hover文本
+  tray.setContextMenu(contextMenu) // 托盘菜单
+
+  function onChangeTrayMenu (type:string) {
+    switch (type) {
+      case 'show':
+        win.show()
+        break
+      case 'quit':
+        app.quit()
+        break
+      default:
+        break
+    }
+  }
 
   ipcMain.on('windowTool', (event, content) => {
     if (content === 'min') {
