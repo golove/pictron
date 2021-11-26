@@ -1,6 +1,6 @@
 
 <template>
-  <div v-masonry transition-duration="0.3s" item-selector=".item">
+  <div class="cardParent" v-masonry transition-duration="0.3s" item-selector=".item">
     <card
       v-masonry-tile
       class="item"
@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import { defineComponent, reactive, ref } from 'vue'
 import { ipcRenderer } from 'electron'
 import card from '../components/card/index.vue'

@@ -1,9 +1,9 @@
 <template>
   <div class="tabbar">
     <div class="icon">
-      <!-- <svg>
-      <use xlink:href="#golove" />
-    </svg> -->
+      <svg v-if="albumFlag"  @click="goback">
+      <use xlink:href="#arrowLeft" />
+    </svg>
       <h2>golove</h2>
     </div>
     <div class="menu">
@@ -19,17 +19,18 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, watch } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, watch, computed } from 'vue'
 import sideItem from './sideItem.vue'
 import windowTool from './windowTool.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from '../../store'
 export default defineComponent({
   components: { sideItem, windowTool },
   setup () {
     const num = ref('/beauty')
     const sideItem = [
-      { title: '唯美', path: '/beauty', icon: '#beauty' },
+      { title: '唯美', path: '/', icon: '#beauty' },
       { title: '欧美', path: '/ustyle', icon: '#female' },
       { title: '漫画', path: '/carton', icon: '#carton' },
       { title: '美腿', path: '/leisi', icon: '#foot' },
@@ -39,18 +40,24 @@ export default defineComponent({
       { title: '设置', path: '/setting', icon: '#setting' }
     ]
     const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
     // console.log(route)
+    const albumFlag = computed(() => store.state.albumFlag)
     watch(route, (n) => {
       // console.log(n.path, o)
       num.value = n.path
     })
-    function isActive (i) {
-      num.value = i
+    const goback = () => {
+      router.go(-1)
+      store.commit('SET_ALBUMFLAG', false)
     }
+
     return {
       sideItem,
       num,
-      isActive
+      goback,
+      albumFlag
     }
   }
 })

@@ -9,6 +9,9 @@ $gray: rgb(237, 235, 243);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     text-align: center;
     user-select: none;
 }
@@ -132,8 +135,6 @@ $heighty: 38px;
 
 .tabbar {
     -webkit-app-region: drag;
-    position: sticky;
-    top: 0;
     z-index: 4;
     width: 100vw;
     height: 35px;
@@ -141,17 +142,20 @@ $heighty: 38px;
     display: flex;
     justify-content: flex-start;
     .icon {
-        width: 10vw;
+        width: 20vw;
         height: 100%;
-        margin: 0 20px;
+        margin: 0 4px;
+        display: flex;
         h2 {
             margin: 0;
             line-height: 35px;
             color: $white;
         }
         svg {
+            cursor: pointer;
+            margin-right: 1rem;
             -webkit-app-region: no-drag;
-            fill: $primary;
+            fill: $white;
             width: 35px;
             height: 35px;
         }
@@ -242,117 +246,151 @@ $heighty: 38px;
     }
 }
 
-.card {
-    // width: 14vw;
-
-    position: relative;
-    img {
-        width: 100%;
-        height: auto;
+$topbarHeight:40px;
+.cardParent {
+    margin-top: 0.2rem;
+    width: 100vw;
+    height: calc(100vh - $topbarHeight) !important;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        position: absolute;
+        width: 10px;
+        height: 0px;
     }
-    &:hover {
-        // box-shadow: rgb(97, 97, 97) 2px 2px 5px;
-        transition: all 0.3s ease-in-out;
-        .title {
-            background-color: $opcityWhite3;
-            backdrop-filter: blur(8px);
-            color: $primary;
-            opacity: 1;
+    &::-webkit-scrollbar-track {
+        background-color: $gray;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .item {
+        img {
+            width: 100%;
+            height: auto;
         }
-        .actTool {
-            .collectstyle {
+
+        &:hover {
+            // box-shadow: rgb(97, 97, 97) 2px 2px 5px;
+
+            .title {
+                background-color: $opcityWhite3;
+                backdrop-filter: blur(8px);
+                color: $primary;
                 opacity: 1;
+                transition: all 0.3s ease;
+                transform: translateY(-50%);
+            }
+            .actTool {
+                .collectstyle {
+                    opacity: 1;
+                }
             }
         }
-    }
-    .title {
-        width: 100%;
-        height: auto;
-        padding: 15px 0;
-        position: absolute;
-        color: $primary;
-        transition: opacity 0.3s ease-in-out;
-        top: 50%;
-        transform: translateY(-50%);
-        opacity: 0;
-    }
-
-    .actTool {
-        width: 45px;
-        height: 100%;
-        background: rgba(255, 255, 255, 0);
-        position: absolute;
-        top: 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        // padding-top: 10px;
-        .count {
+        .title {
+            width: 100%;
+            height: auto;
+            padding: 15px 0;
+            position: absolute;
             color: $primary;
-            background-color: $opcityWhite;
-            padding: 3px;
-            font-size: 12px;
-            &:after {
-                content: "p";
-                width: 30px;
-                height: 30px;
-                // background: red;
-                left: 15px;
-            }
-        }
-        svg {
-            margin: 4px 0;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-        @keyframes mymove {
-            from {
-                transform: rotate(0);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+            transition: opacity 0.3s ease-in-out;
+            top: 50%;
+            transform: translateY(-30%);
+            opacity: 0;
         }
 
-        @-webkit-keyframes mymove /*Safari and Chrome*/ {
-            from {
-                transform: rotate(0);
+        .actTool {
+            width: 45px;
+            height: 90%;
+            background: rgba(255, 255, 255, 0);
+            position: absolute;
+            top: 3%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            // padding-top: 10px;
+            .count {
+                color: $primary;
+                background-color: $opcityWhite;
+
+                font-size: 12px;
+                &:after {
+                    content: "p";
+                    width: 30px;
+                    height: 30px;
+                    // background: red;
+                    left: 15px;
+                }
             }
-            to {
-                transform: rotate(360deg);
+            svg {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
             }
-        }
-        svg.svgAnimate {
-            animation: mymove 3s infinite;
-            -webkit-animation: mymove 3s infinite; /*Safari and Chrome*/
-        }
-        svg.collectstyled {
-            fill: $primary;
-        }
-        svg.collectstyle {
-            opacity: 0;
-            fill: $opcityWhite;
-            &:hover {
+            @keyframes mymove {
+                from {
+                    transform: rotate(0);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @-webkit-keyframes mymove /*Safari and Chrome*/ {
+                from {
+                    transform: rotate(0);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            svg.svgAnimate {
+                animation: mymove 3s infinite;
+                -webkit-animation: mymove 3s infinite; /*Safari and Chrome*/
+            }
+            svg.collectstyled {
                 fill: $primary;
+            }
+            svg.collectstyle {
+                opacity: 0;
+                fill: $opcityWhite;
+                &:hover {
+                    fill: $primary;
+                }
             }
         }
     }
 }
 
+
+  
+
 .albumBox {
-    position: absolute !important;
-    top: 0;
-    width: 100%;
-    min-height: 100%;
+    width: 100vw;
+    height: calc(100vh - $topbarHeight) !important;
+    overflow: auto;
     background: $opcityWhite;
     backdrop-filter: blur(20px);
     z-index: 8;
+    &::-webkit-scrollbar {
+        position: absolute;
+        width: 10px;
+        height: 0px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $gray;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     .bar {
-        -webkit-app-region: drag;
         position: sticky;
-        top: 0px;
+        top: 0;
+        -webkit-app-region: drag;
         background-color: $opcityWhite;
         backdrop-filter: blur(20px);
         display: flex;
@@ -386,77 +424,19 @@ $heighty: 38px;
     }
 
     .albums {
-        column-count: 6;
-        column-gap: 0;
+        width: 100%;
+        // height: 100% !important;
+        // overflow: auto;
+        // column-count: 6;
+        // column-gap: 0;
         // transition: all .3s ease;
-        .imgitem {
-            padding: 2px;
-            img {
-                height: auto;
-                width: 100%;
-                display: block;
 
-                transition: all 0.3s ease-in-out;
-            }
-        }
-    }
-    @media only screen and (max-width: 450px) {
-        .albums {
-            column-count: 1;
-            column-gap: 0;
-        }
-    }
+        img {
+            height: auto;
+            width: 100%;
+            display: block;
 
-    /* Extra small devices (phones, 600px and down) */
-    @media only screen and (min-width: 450px) {
-        .albums {
-            column-count: 2;
-            column-gap: 0;
-        }
-    }
-
-    /* Small devices (portrait tablets and large phones, 600px and up) */
-    @media only screen and (min-width: 600px) {
-        .albums {
-            column-count: 3;
-            column-gap: 0;
-        }
-    }
-
-    /* Medium devices (landscape tablets, 768px and up) */
-    @media only screen and (min-width: 768px) {
-        .albums {
-            column-count: 4;
-            column-gap: 0;
-        }
-    }
-
-    /* Large devices (laptops/desktops, 992px and up) */
-    @media only screen and (min-width: 992px) {
-        .albums {
-            column-count: 5;
-            column-gap: 0;
-        }
-    }
-
-    /* Extra large devices (large laptops and desktops, 1200px and up) */
-    @media only screen and (min-width: 1200px) {
-        .albums {
-            column-count: 6;
-            column-gap: 0;
-        }
-    }
-    @media only screen and (min-width: 1500px) {
-        .albums {
-            column-count: 7;
-            column-gap: 0;
-        }
-    }
-
-    @media only screen and (min-width: 1800px) {
-        .albums {
-            column-count: 9;
-            column-gap: 0;
+            transition: all 0.3s ease-in-out;
         }
     }
 }
@@ -663,7 +643,7 @@ $heighty: 38px;
 @media only screen and (max-width: 450px) {
     .item {
         width: 98vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 
@@ -671,7 +651,7 @@ $heighty: 38px;
 @media only screen and (min-width: 450px) {
     .item {
         width: 48vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 
@@ -679,7 +659,7 @@ $heighty: 38px;
 @media only screen and (min-width: 600px) {
     .item {
         width: 48vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 
@@ -687,7 +667,7 @@ $heighty: 38px;
 @media only screen and (min-width: 768px) {
     .item {
         width: 24vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 
@@ -695,7 +675,7 @@ $heighty: 38px;
 @media only screen and (min-width: 992px) {
     .item {
         width: 19.3vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 
@@ -703,18 +683,18 @@ $heighty: 38px;
 @media only screen and (min-width: 1200px) {
     .item {
         width: 16.1vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 @media only screen and (min-width: 1500px) {
     .item {
         width: 13.9vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }
 @media only screen and (min-width: 1800px) {
     .item {
         width: 10.8vw;
-        margin: 0 2px;
+        margin: 2px;
     }
 }

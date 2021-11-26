@@ -3,7 +3,7 @@
 import { app, protocol, BrowserWindow, ipcMain, Notification, dialog } from 'electron'
 // import { join } from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 import type ImgSpider from './model/JsSpider'
 import MangeData from './model/Mange'
@@ -125,6 +125,7 @@ async function createWindow () {
     height: 900,
     frame: false,
     // titleBarStyle: 'hidden',
+    transparent: false,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -199,7 +200,7 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      await installExtension(VUEJS3_DEVTOOLS)
+      await installExtension(VUEJS_DEVTOOLS)
     } catch (e) {
       console.error('Vue Devtools failed to install:', e)
     }

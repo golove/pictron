@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-show="albumFlag"
-    :class="bigPictureFlag ? 'albumBoxScrollHide' : 'albumBox'"
-  >
+  <div v-show="albumFlag" :class="bigPictureFlag ? 'albumBoxScrollHide' : 'albumBox'">
     <big-picture
       v-if="bigPictureFlag"
       @changeFlag="showOrCloseBigPicture"
@@ -10,55 +7,62 @@
       :pictures="albums"
       :picIndex="picIndex"
     />
-    <div class="bar">
-      <h2>golove</h2>
+    <!-- <div class="bar">
       <p class="title">{{ albumTitle }}</p>
       <div class="close" @click="changeAlbumFlag">
         <svg>
           <use xlink:href="#close" />
         </svg>
       </div>
-    </div>
-    <div class="albums">
+    </div>-->
+
+    <div v-masonry transition-duration="0.3s" item-selector=".item" class="albums">
       <div
-        class="imgitem"
+        v-masonry-tile
+        class="item"
         @click="showOrCloseBigPicture(index)"
         :key="item + index"
         v-for="(item, index) in albums"
       >
-        <img :src="item" alt="" />
+        <img :src="item" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, onMounted } from 'vue'
 import { useStore } from '../../store'
 import bigPicture from './bigPicture.vue'
-
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'album',
   components: { bigPicture },
   setup () {
     // const internalInstance = getCurrentInstance()
-
+    const router = useRouter()
     const store = useStore()
     const albumFlag = computed(() => store.state.albumFlag)
     const albums = computed(() => store.state.album)
-    const albumTitle = computed(() => store.state.albumTitle)
-    function changeAlbumFlag () {
-      store.commit('SET_ALBUMFLAG', false)
-    }
-
+    // const albumTitle = computed(() => store.state.albumTitle)
+    // function changeAlbumFlag () {
+    //   store.commit('SET_ALBUMFLAG', false)
+    //   router.go(-1)
+    // }
+    onMounted(() => {
+      console.log(albums.value)
+      if (albums.value[0] === '') {
+        router.push('/')
+      }
+    })
     const bigPictureFlag = ref(false)
     const picIndex = ref(0)
-    function showOrCloseBigPicture (index:number) {
+    function showOrCloseBigPicture (index: number) {
       picIndex.value = index
       bigPictureFlag.value = !bigPictureFlag.value
       // console.log('album:' + picIndex.value)
     }
-    function setPicIndex (index:number) {
+    function setPicIndex (index: number) {
       picIndex.value = index
       // console.log('album:' + picIndex.value)
     }
@@ -79,12 +83,12 @@ export default defineComponent({
     // })
 
     return {
-      changeAlbumFlag,
+      // changeAlbumFlag,
       albumFlag,
       bigPictureFlag,
       showOrCloseBigPicture,
       albums,
-      albumTitle,
+      // albumTitle,
       picIndex,
       setPicIndex
     }
