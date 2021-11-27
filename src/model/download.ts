@@ -27,26 +27,66 @@ const userAgents = [
 ]
 const userAgent = userAgents[Math.floor((Math.random() * userAgents.length))]
 const headers = { 'User-Agent': userAgent }
-function showNotification (title:string, body:string) {
+function showNotification (title: string, body: string) {
   new Notification({ title, body }).show()
 }
-function downloadPicture (data:IData): boolean|undefined {
-  const picDir = join(__dirname, `./pictures/${data.title}/`)
-  fs.mkdir(picDir, { recursive: true }, (err) => {
-    console.log(err)
-  })
-  const last = data.href[data.href.length - 1]
-  for (const e of data.href) {
-    const opts = { url: e, headers }
-    const ext = e.split('/').pop()
-    const res = request(opts)
-    res.pipe(fs.createWriteStream(join(picDir, `${ext}`)))
-    // console.log(e)
-    if (e === last) {
-      showNotification(data.title, '已完成下载')
-      return true
+// function downloadPicture (data: IData): boolean | undefined {
+//   const picDir = join(__dirname, `./pictures/${data.title}/`)
+//   const ww = fs.mkdirSync(picDir, { recursive: true })
+//   if (ww) {
+//     const last = data.href[data.href.length - 1]
+//     for (const e of data.href) {
+//       const opts = { url: e, headers }
+//       const ext = e.split('/').pop()
+//       const res = request(opts)
+//       const yy = res.pipe(fs.createWriteStream(join(picDir, `${ext}`)))
+//       yy.on('finish', () => {
+//         // flag = flag + 1
+//         if (e === last) {
+//           showNotification(data.title, '已完成下载')
+//         }
+//       })
+//     }
+//     return true
+//   } else {
+//     console.log('create dir error')
+//     return false
+//   }
+// }
+
+// export default downloadPicture
+
+class DownloadImage {
+  path:string
+  picDir
+  mkDir
+  downloadflag = true
+  constructor (data:IData) {
+    this.path = `./pictures/${data.title}/`
+    this.picDir = join(__dirname, this.path)
+    this.mkDir = fs.mkdirSync(this.picDir, { recursive: true })
+    if (this.mkDir) {
+      const last = data.href[data.href.length - 1]
+      for (const e of data.href) {
+        const opts = { url: e, headers }
+        const ext = e.split('/').pop()
+        const res = request(opts)
+        const yy = res.pipe(fs.createWriteStream(join(this.picDir, `${ext}`)))
+        yy.on('finish', () => {
+          // flag = flag + 1
+          if (e === last) {
+            showNotification(data.title, '已完成下载')
+            this.downloadflag = true
+          } else {
+            this.downloadflag = false
+          }
+        })
+      }
+    } else {
+      console.log('create dir error')
+      this.downloadflag = false
     }
   }
 }
 
-export default downloadPicture
+export default DownloadImage

@@ -1,6 +1,6 @@
 import Sqlite3 from './db'
 import type { IData, IDataS } from './type'
-import download from './download'
+import DownloadImage from './download'
 class ImgSpider {
   url
   DB
@@ -122,7 +122,8 @@ class ImgSpider {
         return flag
       } else {
         if (actName === 'download') {
-          flag = download(R)
+          const getflag = new DownloadImage(R)
+          flag = getflag.downloadflag
         } else {
           flag = true
         }

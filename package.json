@@ -2,6 +2,7 @@
   "name": "pictron",
   "version": "0.1.0",
   "private": true,
+  "author": {"name": "golove", "email": "liuziyu36@gmail.com"},
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

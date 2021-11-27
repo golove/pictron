@@ -1,29 +1,23 @@
 <template>
   <div class="actTool">
- <!-- <div class="count">
+    <!-- <div class="count">
       {{ actool.href.length }}
-    </div> -->
-    <svg
-      @click.stop="collectMethod"
-      :class="actool.collect ? 'collectstyled' : 'collectstyle'"
-    >
+    </div>-->
+    <svg @click.stop="collectMethod" :class="actool.collect ? 'collectstyled' : 'collectstyle'">
       <use xlink:href="#heart" />
     </svg>
     <!-- <svg :class="actool.star?'collectstyled':'collectstyle'">
       <use xlink:href="#star" />
-    </svg> -->
-     <div>
+    </svg>-->
+    <div>
       <svg
         @click.stop="downloadMethod"
-        :class="actool.download ? 'collectstyled' :downloadflag? 'svgAnimate' :'collectstyle'"
+        :class="actool.download ? 'collectstyled' : downloadflag ? 'svgAnimate' : 'collectstyle'"
       >
         <use v-if="actool.download" xlink:href="#check_circle" />
-        <use v-else :xlink:href="downloadflag?'#refresh':'#download_circle'" />
+        <use v-else :xlink:href="downloadflag ? '#refresh' : '#download_circle'" />
       </svg>
-      <svg
-        @click.stop="deleteMethod"
-        :class="actool.deleted ? 'collectstyled' : 'collectstyle'"
-      >
+      <svg @click.stop="deleteMethod" :class="actool.deleted ? 'collectstyled' : 'collectstyle'">
         <use xlink:href="#trash" />
       </svg>
     </div>
@@ -90,7 +84,11 @@ export default defineComponent({
           classify: actool.value.classify
         })
         ipcRenderer.on('download-reply', (event, arg) => {
-          actool.value.download = arg
+          const Tm = setTimeout(() => {
+            actool.value.download = arg
+            clearTimeout(Tm)
+          }, 2000)
+          // actool.value.download = arg
           console.log('collect:' + arg)
         })
       }

@@ -13,6 +13,11 @@ module.exports = {
         copyright: 'copyright 2021 golove',
 
         linux: {
+          category: 'Utility',
+          target: [
+            'AppImage',
+            'deb'
+          ]
         }
       }
     }

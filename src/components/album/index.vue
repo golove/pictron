@@ -1,5 +1,5 @@
 <template>
-  <div v-show="albumFlag" :class="bigPictureFlag ? 'albumBoxScrollHide' : 'albumBox'">
+  <div :class="bigPictureFlag ? 'albumBoxScrollHide' : 'albumBox'">
     <big-picture
       v-if="bigPictureFlag"
       @changeFlag="showOrCloseBigPicture"
@@ -16,7 +16,7 @@
       </div>
     </div>-->
 
-    <div v-masonry transition-duration="0.3s" item-selector=".item" class="albums">
+    <div v-else v-masonry transition-duration="0.3s" item-selector=".item" class="albums">
       <div
         v-masonry-tile
         class="item"
@@ -42,7 +42,7 @@ export default defineComponent({
     // const internalInstance = getCurrentInstance()
     const router = useRouter()
     const store = useStore()
-    const albumFlag = computed(() => store.state.albumFlag)
+    // const albumFlag = computed(() => store.state.albumFlag)
     const albums = computed(() => store.state.album)
     // const albumTitle = computed(() => store.state.albumTitle)
     // function changeAlbumFlag () {
@@ -84,7 +84,6 @@ export default defineComponent({
 
     return {
       // changeAlbumFlag,
-      albumFlag,
       bigPictureFlag,
       showOrCloseBigPicture,
       albums,

@@ -333,6 +333,7 @@ $topbarHeight:40px;
                 width: 24px;
                 height: 24px;
                 cursor: pointer;
+                transition: all .3s ease;
             }
             @keyframes mymove {
                 from {
@@ -352,8 +353,9 @@ $topbarHeight:40px;
                 }
             }
             svg.svgAnimate {
-                animation: mymove 3s infinite;
-                -webkit-animation: mymove 3s infinite; /*Safari and Chrome*/
+                fill: rgb(81, 255, 0);
+                animation: mymove 1s infinite;
+                -webkit-animation: mymove s infinite; /*Safari and Chrome*/
             }
             svg.collectstyled {
                 fill: $primary;
