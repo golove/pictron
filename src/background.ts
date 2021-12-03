@@ -23,6 +23,7 @@ type IContent={
   reload:boolean
 }
 
+const rootUrl = 'https://k6.hfv942p0.org/pw/'
 async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content:IContent, ipcName:string) {
   console.log(params.allImgData.length)
   if (params.allImgData.length > 0 && !content.reload) {
@@ -35,9 +36,8 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
     }
   } else {
     console.log('spider')
-    const data = await getPage(content.url)
-
-    const hrefs = params.findHref(data.res)
+    const data = await getPage(rootUrl + content.url)
+    const hrefs = params.findHref(data.res, rootUrl)
     for (const e of hrefs) {
       const html = await getPage(e)
       const srcs = params.findImgsrc(html.res, e)
@@ -54,7 +54,7 @@ async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content
     console.log('spider')
     const data = await getPage(content.url)
 
-    const hrefs = params.findHref(data.res)
+    const hrefs = params.findHref(data.res, rootUrl)
     if (hrefs.length > 0) {
       for (const e of hrefs) {
         const html = await getPage(e)
@@ -113,9 +113,10 @@ ipcMain.on('Collect-message', (event, content) => {
   }
 })
 
-ipcMain.on('changeActool', (event, content) => {
-  const flag = MangeImg[content.classify].findImgCard(content.url, content.actName)
+ipcMain.on('changeActool', async (event, content) => {
+  const flag = await MangeImg[content.classify].findImgCard(content.url, content.actName)
   event.sender.send(content.actName + '-reply', flag)
+  console.log(flag)
 })
 
 async function createWindow () {
@@ -125,7 +126,7 @@ async function createWindow () {
     height: 900,
     frame: false,
     // titleBarStyle: 'hidden',
-    transparent: false,
+    transparent: true,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -145,7 +146,8 @@ async function createWindow () {
   const tray = new Tray(image.resize({ width: 16, height: 16 }))
   const contextMenu = Menu.buildFromTemplate([
     { label: '打开', type: 'radio', click: () => onChangeTrayMenu('show') },
-    { label: '退出', type: 'radio', click: () => onChangeTrayMenu('quit') }
+    { label: '退出', type: 'radio', click: () => onChangeTrayMenu('quit') },
+    { label: 'Item3', type: 'radio', checked: true }
   ])
   tray.setToolTip('desktop-tools') // 托盘hover文本
   tray.setContextMenu(contextMenu) // 托盘菜单

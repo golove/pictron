@@ -1,7 +1,7 @@
 <template>
 <page-component :pages="{
         name: 'Beauty',
-        url: 'https://k6.c5cbca7s.pw/pw/thread.php?fid=14'
+        url: 'thread.php?fid=14'
       }"/>
 </template >
 

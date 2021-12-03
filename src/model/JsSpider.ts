@@ -53,13 +53,13 @@ class ImgSpider {
     })
   }
 
-  findHref (html: string): Array<string> {
+  findHref (html: string, rootUrl:string): Array<string> {
     const hreflist: Array<string> = []
     const b = /html_data([^<>"]*)/gi
     const hrefs = html.match(b)
     if (hrefs) {
       for (const e of hrefs) {
-        const href = 'https://k6.c5cbca7s.pw/pw/' + e
+        const href = rootUrl + e
         hreflist.push(href)
       }
     }
@@ -110,27 +110,24 @@ class ImgSpider {
     }
   }
 
-  findImgCard (url:string, actName:string):boolean|undefined {
+  findImgCard (url:string, actName:string):Promise<unknown> | boolean | undefined {
     const R = this.allImgData.find((e) => e.url === url)
-    let flag
     if (R !== undefined) {
       if (R[actName]) {
-        flag = false
         R[actName] = false
         this[actName + 'Data'].splice(this[actName + 'Data'].findIndex((item:IData) => item === R), 1)
         this.DB.updateImg(`${actName}=0`, url)
-        return flag
+        return false
       } else {
-        if (actName === 'download') {
-          const getflag = new DownloadImage(R)
-          flag = getflag.downloadflag
-        } else {
-          flag = true
-        }
         R[actName] = true
         this[actName + 'Data'].push(R)
         this.DB.updateImg(`${actName}=1`, url)
-        return flag
+        if (actName === 'download') {
+          const getflag = new DownloadImage(R)
+          const res = getflag.download()
+          return res
+        }
+        return true
       }
     }
   }

@@ -1,24 +1,28 @@
 $primary: rgb(255, 0, 106);
-$lightPrimary: rgb(255, 228, 232);
+$lightPrimary: rgb(255, 241, 243);
 $white: white;
 $opcityWhite: rgba(255, 255, 255, 0.8);
 $opcityWhite3: rgba(255, 255, 255, 0.3);
 $gray: rgb(237, 235, 243);
-html,body{
+html,
+body {
     padding: 0;
-    margin:0;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0);
+    overflow: hidden;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    width: 100vw;
+    // width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: relative;
     overflow: hidden;
     text-align: center;
     user-select: none;
-    // border-radius: 12px;
+    border-radius: 18px;
+    background-color: $lightPrimary;
 }
 
 .loadMoreBtnStyle {
@@ -46,51 +50,39 @@ html,body{
     border-radius: 8px;
     font-weight: bold;
 }
-html::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-}
-body::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-}
-body {
-    margin: 0;
-}
 
-$heighty: 38px;
-.contair {
-    margin-top: 2px;
-    position: sticky;
-    top: $heighty;
-    width: 100vw;
-    height: calc(100vh - $heighty);
-}
-.contextscrollhide {
-    overflow: hidden;
-}
-.context {
-    overflow: scroll;
-    &::-webkit-scrollbar {
-        position: absolute;
-        width: 10px;
-        height: 0px;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: $gray;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $primary;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-}
+// $heighty: 38px;
+// .contair {
+//     margin-top: 2px;
+//     position: sticky;
+//     top: $heighty;
+//     width: 100vw;
+//     height: calc(100vh - $heighty);
+// }
+// .contextscrollhide {
+//     overflow: hidden;
+// }
+// .context {
+//     overflow: scroll;
+//     &::-webkit-scrollbar {
+//         position: absolute;
+//         width: 10px;
+//         height: 0px;
+//     }
+//     &::-webkit-scrollbar-track {
+//         background-color: $gray;
+//     }
+//     &::-webkit-scrollbar-thumb {
+//         background-color: $primary;
+//         border-radius: 5px;
+//         cursor: pointer;
+//     }
+// }
 
 .setting {
     color: $primary;
     text-align: start;
     padding: 2rem 15rem;
-    background-color: $lightPrimary;
     .lightfont {
         color: rgb(255, 162, 185);
     }
@@ -251,14 +243,13 @@ $heighty: 38px;
     }
 }
 
-$topbarHeight:40px;
+$topbarHeight: 40px;
 .cardParent {
     margin-top: 0.2rem;
     width: 100vw;
     height: calc(100vh - $topbarHeight) !important;
     overflow: auto;
     &::-webkit-scrollbar {
-        position: absolute;
         width: 10px;
         height: 0px;
     }
@@ -271,6 +262,8 @@ $topbarHeight:40px;
         cursor: pointer;
     }
     .item {
+        border-radius: 12px;
+        overflow: hidden;
         img {
             width: 100%;
             height: auto;
@@ -333,7 +326,7 @@ $topbarHeight:40px;
                 width: 24px;
                 height: 24px;
                 cursor: pointer;
-                transition: all .3s ease;
+                transition: all 0.3s ease;
             }
             @keyframes mymove {
                 from {
@@ -370,9 +363,6 @@ $topbarHeight:40px;
         }
     }
 }
-
-
-  
 
 .albumBox {
     width: 100vw;
@@ -437,13 +427,16 @@ $topbarHeight:40px;
         // column-count: 6;
         // column-gap: 0;
         // transition: all .3s ease;
+        .item {
+            border-radius: 12px;
+            overflow: hidden;
+            img {
+                height: auto;
+                width: 100%;
+                display: block;
 
-        img {
-            height: auto;
-            width: 100%;
-            display: block;
-
-            transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
         }
     }
 }

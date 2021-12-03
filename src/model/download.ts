@@ -60,32 +60,38 @@ class DownloadImage {
   path:string
   picDir
   mkDir
-  downloadflag = true
+  data
   constructor (data:IData) {
+    this.data = data
     this.path = `./pictures/${data.title}/`
     this.picDir = join(__dirname, this.path)
     this.mkDir = fs.mkdirSync(this.picDir, { recursive: true })
-    if (this.mkDir) {
-      const last = data.href[data.href.length - 1]
-      for (const e of data.href) {
-        const opts = { url: e, headers }
-        const ext = e.split('/').pop()
-        const res = request(opts)
-        const yy = res.pipe(fs.createWriteStream(join(this.picDir, `${ext}`)))
-        yy.on('finish', () => {
-          // flag = flag + 1
-          if (e === last) {
-            showNotification(data.title, '已完成下载')
-            this.downloadflag = true
-          } else {
-            this.downloadflag = false
-          }
-        })
+  }
+
+  download ():Promise<unknown> {
+    const downflag = new Promise((resolve) => {
+      console.log(this.mkDir)
+      if (this.mkDir) {
+        const last = this.data.href[this.data.href.length - 1]
+        for (const e of this.data.href) {
+          const opts = { url: e, headers }
+          const ext = e.split('/').pop()
+          const res = request(opts)
+          const yy = res.pipe(fs.createWriteStream(join(this.picDir, `${ext}`)))
+          yy.on('finish', () => {
+            // flag = flag + 1
+            if (e === last) {
+              showNotification(this.data.title, '已完成下载')
+              resolve(true)
+            }
+          })
+        }
+      } else {
+        console.log('create dir error')
+        resolve(false)
       }
-    } else {
-      console.log('create dir error')
-      this.downloadflag = false
-    }
+    }).catch((error) => { console.log(error) })
+    return downflag
   }
 }
 

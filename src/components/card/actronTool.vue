@@ -84,12 +84,15 @@ export default defineComponent({
           classify: actool.value.classify
         })
         ipcRenderer.on('download-reply', (event, arg) => {
-          const Tm = setTimeout(() => {
-            actool.value.download = arg
-            clearTimeout(Tm)
-          }, 2000)
+          // const Tm = setTimeout(() => {
+          //   actool.value.download = arg
+          //   clearTimeout(Tm)
+          // }, 2000)
           // actool.value.download = arg
-          console.log('collect:' + arg)
+
+          actool.value.download = arg
+
+          console.log('download:' + arg)
         })
       }
     }

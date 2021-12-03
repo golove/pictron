@@ -37,13 +37,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, onMounted } from 'vue'
 
 export default defineComponent({
   setup () {
     onMounted(() => {
-      const replaceText = (selector, text) => {
+      const replaceText = (selector:string, text:string) => {
         const element = document.getElementById(selector)
         if (element) element.innerText = text
       }

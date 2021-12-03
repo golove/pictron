@@ -50,7 +50,7 @@ export default defineComponent({
     //   router.go(-1)
     // }
     onMounted(() => {
-      console.log(albums.value)
+      // console.log(albums.value)
       if (albums.value[0] === '') {
         router.push('/')
       }
