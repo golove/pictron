@@ -3,11 +3,12 @@
 import { app, protocol, BrowserWindow, ipcMain, Notification, dialog, nativeImage, Tray, Menu } from 'electron'
 import { join } from 'path'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+// import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 import type ImgSpider from './model/JsSpider'
 import MangeData from './model/Mange'
 import getPage from './model/request'
+import MangePath from './model/MangePath'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -23,9 +24,22 @@ type IContent={
   reload:boolean
 }
 
-const rootUrl = 'https://k6.hfv942p0.org/pw/'
+const mangePath = new MangePath()
+ipcMain.on('changePathOrUrl', (event, arg) => {
+  console.log(arg)
+  mangePath.update(arg)
+})
+
 async function ipcPublic (params:ImgSpider, event:Electron.IpcMainEvent, content:IContent, ipcName:string) {
-  console.log(params.allImgData.length)
+  let rootUrl = ''
+  // const mangeUrl = new MangePath()
+  if (mangePath.url === '') {
+    rootUrl = 'https://k6.hfv942p0.org/pw/'
+  } else {
+    rootUrl = mangePath.url
+  }
+  console.log(rootUrl)
+
   if (params.allImgData.length > 0 && !content.reload) {
     for (const srcs of params.allImgData) {
       event.sender.send(ipcName + '-reply', srcs)
@@ -142,7 +156,7 @@ async function createWindow () {
   // 托盘
   const root = join(__dirname, '../')
   console.log(root)
-  const image = nativeImage.createFromPath(join(root, './build/icons/icon2.png'))
+  const image = nativeImage.createFromPath(join(root, './build/icons/16x16.png'))
   const tray = new Tray(image.resize({ width: 16, height: 16 }))
   const contextMenu = Menu.buildFromTemplate([
     { label: '打开', type: 'radio', click: () => onChangeTrayMenu('show') },
@@ -227,14 +241,14 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
-    try {
-      await installExtension(VUEJS_DEVTOOLS)
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e)
-    }
-  }
+  // if (isDevelopment && !process.env.IS_TEST) {
+  //   // Install Vue Devtools
+  //   try {
+  //     await installExtension(VUEJS_DEVTOOLS)
+  //   } catch (e) {
+  //     console.error('Vue Devtools failed to install:', e)
+  //   }
+  // }
   createWindow()
 })
 

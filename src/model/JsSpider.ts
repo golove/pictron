@@ -1,4 +1,4 @@
-import Sqlite3 from './db'
+import Sqlite3 from './PictureDB'
 import type { IData, IDataS } from './type'
 import DownloadImage from './download'
 class ImgSpider {
@@ -15,8 +15,8 @@ class ImgSpider {
     this.url = url
     this.DB = new Sqlite3(tableName)
     this.DB.getAllImages((e: any, a: Array<IDataS>) => {
+      if (e) console.error(e)
       if (a) {
-        if (e) console.error(e)
         for (const item of a) {
           const temItem: IData = {
             classify: '',

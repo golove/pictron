@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/views/imgData/imgData.ts", "src/model/db.ts"  ],
+, "src/views/imgData/imgData.ts", "src/model/PictureDB.ts"  ],
   "exclude": [
     "node_modules"
   ]

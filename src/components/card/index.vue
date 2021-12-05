@@ -6,7 +6,7 @@
     <act-tool :acItem="item" />
   </div>
 
-<div v-else-if="!card.deleted && !label" @click="showAll">
+  <div v-else-if="!card.deleted && !label" @click="showAll">
     <img :src="card.href[0]" :alt="card.title" />
 
     <div class="title">{{ card.title }}</div>
@@ -18,8 +18,10 @@
 import { computed, defineComponent, ref, reactive } from 'vue'
 import { useStore } from '../../store'
 import actTool from './actronTool.vue'
-// import { ipcRenderer } from 'electron'
+import fs from 'fs'
+import { join } from 'path'
 import useRoute from '../../router'
+import os from 'os'
 export default defineComponent({
   name: 'Card',
   components: {
@@ -57,13 +59,15 @@ export default defineComponent({
   },
   setup (props) {
     const store = useStore()
-    // const router = useRoute()
     const showFlag = ref(false)
     const card = computed(() => props.item)
     const hrefs = reactive([])
     const positionSrc = ref('')
     const showLgFlag = ref(false)
     function showAll (): void {
+      const fsdir = fs.mkdirSync(join(os.homedir(), card.value.title), { recursive: true })
+      // fs.chmodSync(join(__dirname, card.value.title), 0o777)
+      console.log(fsdir)
       useRoute.push('/album')
       store.commit('SET_ALBUM', {
         hrefs: card.value.href,

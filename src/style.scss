@@ -4,6 +4,7 @@ $white: white;
 $opcityWhite: rgba(255, 255, 255, 0.8);
 $opcityWhite3: rgba(255, 255, 255, 0.3);
 $gray: rgb(237, 235, 243);
+$topbarHeight: 40px;
 html,
 body {
     padding: 0;
@@ -51,38 +52,25 @@ body {
     font-weight: bold;
 }
 
-// $heighty: 38px;
-// .contair {
-//     margin-top: 2px;
-//     position: sticky;
-//     top: $heighty;
-//     width: 100vw;
-//     height: calc(100vh - $heighty);
-// }
-// .contextscrollhide {
-//     overflow: hidden;
-// }
-// .context {
-//     overflow: scroll;
-//     &::-webkit-scrollbar {
-//         position: absolute;
-//         width: 10px;
-//         height: 0px;
-//     }
-//     &::-webkit-scrollbar-track {
-//         background-color: $gray;
-//     }
-//     &::-webkit-scrollbar-thumb {
-//         background-color: $primary;
-//         border-radius: 5px;
-//         cursor: pointer;
-//     }
-// }
 
 .setting {
     color: $primary;
     text-align: start;
-    padding: 2rem 15rem;
+    // padding: 2rem 15rem;
+    height: calc(100vh - $topbarHeight) !important;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 0px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $gray;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     .lightfont {
         color: rgb(255, 162, 185);
     }
@@ -90,6 +78,23 @@ body {
         border-radius: 8px;
         background-color: $white;
         padding: 1rem 2rem;
+    }
+    .changeurl{
+        
+        border-radius: 8px;
+        background-color: $white;
+        padding: 1rem 2rem;
+        input{
+            font-size: 1rem;
+            width: 75%;
+            height: 2rem;
+            border-style: none;
+            background-color:$lightPrimary;
+            padding: 0.6rem 1rem;
+            outline: none;
+            border-radius: 8px;
+        }
+      
     }
     .download {
         border-radius: 8px;
@@ -243,7 +248,7 @@ body {
     }
 }
 
-$topbarHeight: 40px;
+
 .cardParent {
     margin-top: 0.2rem;
     width: 100vw;
@@ -506,10 +511,12 @@ $topbarHeight: 40px;
             z-index: 4;
         }
         .arrowright {
+            padding: 40vh 0;
             right: 2vw;
             opacity: 0;
         }
         .arrowleft {
+            padding: 40vh 0;
             left: 2vw;
             opacity: 0;
         }
@@ -613,7 +620,7 @@ $topbarHeight: 40px;
             flex-wrap: nowrap;
             transition: height 0.3s ease;
             width: 100vw;
-            // overflow: scroll;
+            overflow: auto;
             &::-webkit-scrollbar {
                 width: 0px;
                 height: 2px;
@@ -645,6 +652,9 @@ $topbarHeight: 40px;
         width: 98vw;
         margin: 2px;
     }
+    .setting{
+        padding:2rem 1rem;
+    }
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -652,6 +662,9 @@ $topbarHeight: 40px;
     .item {
         width: 48vw;
         margin: 2px;
+    }
+    .setting{
+        padding:2rem 2rem;
     }
 }
 
@@ -661,6 +674,9 @@ $topbarHeight: 40px;
         width: 48vw;
         margin: 2px;
     }
+    .setting{
+        padding:2rem 4rem;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -668,6 +684,9 @@ $topbarHeight: 40px;
     .item {
         width: 24vw;
         margin: 2px;
+    }
+    .setting{
+        padding:2rem 6rem;
     }
 }
 
@@ -677,6 +696,9 @@ $topbarHeight: 40px;
         width: 19.3vw;
         margin: 2px;
     }
+    .setting{
+        padding:2rem 9rem;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -685,16 +707,25 @@ $topbarHeight: 40px;
         width: 16.1vw;
         margin: 2px;
     }
+    .setting{
+        padding:2rem 12rem;
+    }
 }
 @media only screen and (min-width: 1500px) {
     .item {
         width: 13.9vw;
         margin: 2px;
     }
+    .setting{
+        padding:2rem 14rem;
+    }
 }
 @media only screen and (min-width: 1800px) {
     .item {
         width: 10.8vw;
         margin: 2px;
+    }
+    .setting{
+        padding:2rem 15rem;
     }
 }

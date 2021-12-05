@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="cardParent"
-    v-masonry
-    transition-duration="0.3s"
-    item-selector=".item"
-  >
+  <div class="cardParent" v-masonry transition-duration="0.3s" item-selector=".item">
     <card
       v-masonry-tile
       class="item"
@@ -12,11 +7,13 @@
       :key="item.title + index"
       :item="item"
     />
-
+    <button
+    class="item"
+      :class="reload ? 'btndisabledstyle' : 'loadMoreBtnStyle'"
+      @click="reloadMethod"
+      :disabled="reload"
+    >{{ reload ? "loading..." : "load more" }}</button>
   </div>
-   <button :class="reload?'btndisabledstyle':'loadMoreBtnStyle'" @click="reloadMethod" :disabled="reload">
-    {{ reload ? "loading..." : "load more" }}
-  </button>
 </template>
 
 <script>

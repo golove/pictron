@@ -156,7 +156,8 @@ export default defineComponent({
 
     function setScrollLeft (n:number) {
       const actDom = document.getElementsByClassName('smPicture')[0]
-      actDom.scrollLeft = n * 45
+      const step = (actDom.scrollWidth) / (pictureList.value.length)
+      actDom.scrollLeft = n * step
     }
     watch(pindex, (n) => {
       setScrollLeft(n)

@@ -1,8 +1,9 @@
 import sqlite3 from 'sqlite3'
 import type { IData, IDataS, Cb, Cd } from './type'
+// const db = new sqlite3.Database('pictron_database.db')
 class SqliteDB {
-  db
   tableName
+  db
   constructor (tableName:string) {
     this.tableName = tableName
     this.db = new sqlite3.Database('pictron_database.db')
@@ -10,16 +11,6 @@ class SqliteDB {
     // CONSTRAINT unique_username UNIQUE(username)  对username做了唯一约束
     // 创建accounts用户表格的命令
     // CreationTime为创建时间
-    this.db.run(`
-CREATE TABLE IF NOT EXISTS accounts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    password TEXT,
-    email TEXT,
-    creationTime TEXT,
-    CONSTRAINT unique_username UNIQUE(username)
-)
-`)
     this.db.run(`
 CREATE TABLE IF NOT EXISTS ${tableName} (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,50 +22,10 @@ CREATE TABLE IF NOT EXISTS ${tableName} (
     collect NUMERIC,
     deleted NUMERIC,
     download NUMERIC,
-    CONSTRAINT unique_title UNIQUE(title)
-)
-`)
-
-    this.db.run(`
-CREATE TABLE IF NOT EXISTS hrefs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    src TEXT,
-    href TEXT,
-    title TEXT,
-    creationTime TEXT,
-    CONSTRAINT unique_title UNIQUE(title)
+    CONSTRAINT unique_url UNIQUE(url)
 )
 `)
   }
-
-  // createhrefs(src, href, title, creationTime) {
-  //     const query = "INSERT INTO hrefs (src, href, title,creationTime) VALUES (?, ?, ?, ?)"
-  //     const values = [src, href, title,creationTime]
-  //     this.db.run(query, values, (error) => {
-  //         // if(e) throw e
-  //         console.log(error)
-  //     })
-  // }
-
-  // username, password, passwordRepeat, email, creationTime, callback
-  // 将前端传过来的用户信息插入
-  // createAccount (username, password, email, creationTime) {
-  //   const query = 'INSERT INTO accounts (username, password, email, creationTime) VALUES (?, ?, ?, ?)'
-  //   const values = [username, password, email, creationTime]
-  //   this.db.run(query, values, (error) => {
-  //     // if(e) throw e
-  //     console.log(error)
-  //   })
-  // }
-
-  // 通过姓名查找用户信息
-  // getAccountByUsername (username, callback) {
-  //   const query = 'SELECT * FROM accounts WHERE username = ?'
-  //   const values = [username]
-  //   this.db.get(query, values, function (error, account) {
-  //     callback(error, account)
-  //   })
-  // }
 
   createImages (obj: IData): void {
     // console.log(obj.title)
