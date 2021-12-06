@@ -18,10 +18,7 @@
 import { computed, defineComponent, ref, reactive } from 'vue'
 import { useStore } from '../../store'
 import actTool from './actronTool.vue'
-import fs from 'fs'
-import { join } from 'path'
 import useRoute from '../../router'
-import os from 'os'
 export default defineComponent({
   name: 'Card',
   components: {
@@ -65,9 +62,9 @@ export default defineComponent({
     const positionSrc = ref('')
     const showLgFlag = ref(false)
     function showAll (): void {
-      const fsdir = fs.mkdirSync(join(os.homedir(), card.value.title), { recursive: true })
+      // const fsdir = fs.mkdirSync(join(os.homedir(), card.value.title), { recursive: true })
       // fs.chmodSync(join(__dirname, card.value.title), 0o777)
-      console.log(fsdir)
+      // console.log(fsdir)
       useRoute.push('/album')
       store.commit('SET_ALBUM', {
         hrefs: card.value.href,

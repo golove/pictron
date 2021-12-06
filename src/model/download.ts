@@ -31,32 +31,6 @@ const headers = { 'User-Agent': userAgent }
 function showNotification (title: string, body: string) {
   new Notification({ title, body }).show()
 }
-// function downloadPicture (data: IData): boolean | undefined {
-//   const picDir = join(__dirname, `./pictures/${data.title}/`)
-//   const ww = fs.mkdirSync(picDir, { recursive: true })
-//   if (ww) {
-//     const last = data.href[data.href.length - 1]
-//     for (const e of data.href) {
-//       const opts = { url: e, headers }
-//       const ext = e.split('/').pop()
-//       const res = request(opts)
-//       const yy = res.pipe(fs.createWriteStream(join(picDir, `${ext}`)))
-//       yy.on('finish', () => {
-//         // flag = flag + 1
-//         if (e === last) {
-//           showNotification(data.title, '已完成下载')
-//         }
-//       })
-//     }
-//     return true
-//   } else {
-//     console.log('create dir error')
-//     return false
-//   }
-// }
-
-// export default downloadPicture
-
 class DownloadImage {
   picDir
   mkDir
@@ -82,9 +56,8 @@ class DownloadImage {
           const res = request(opts)
           const yy = res.pipe(fs.createWriteStream(join(this.picDir, `${ext}`)))
           yy.on('finish', () => {
-            // flag = flag + 1
             if (e === last) {
-              showNotification(this.data.title, '已完成下载')
+              showNotification(this.data.title, `已完成下载图片保存在${this.picDir}文件夹`)
               resolve(true)
             }
           })

@@ -27,7 +27,10 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { ipcRenderer } from 'electron'
-
+import fs from 'fs'
+import { join } from 'path'
+import os from 'os'
+// import {spawn} from 'child_process'
 export default defineComponent({
   name: 'ActTool',
   props: {
@@ -94,6 +97,12 @@ export default defineComponent({
 
           console.log('download:' + arg)
         })
+      } else {
+        fs.opendir(join(os.homedir(), 'Pictures/' + actool.value.title), (err, dir) => {
+          if (err) console.log(err)
+          console.log(dir)
+        })
+        // spawn('open_xdg', join(os.homedir(), 'Pictures/' + actool.value.title))
       }
     }
 
