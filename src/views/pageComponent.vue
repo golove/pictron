@@ -8,24 +8,28 @@
       :item="item"
     />
     <button
-    class="item"
+      class="item"
       :class="reload ? 'btndisabledstyle' : 'loadMoreBtnStyle'"
       @click="reloadMethod"
       :disabled="reload"
     >{{ reload ? "loading..." : "load more" }}</button>
   </div>
+  <!-- <actool /> -->
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent, reactive, ref } from 'vue'
-import card from '../components/card/index.vue'
+import card from '@/components/card/index.vue'
 import { ipcRenderer } from 'electron'
-// import { useStore } from '../store'
-
-// import cardData from './imgData'
+// import { useStore } from '@/store'
+// import actool from '@/components/actool/index.vue'
+import { IData } from '@/model/type'
 export default defineComponent({
   name: 'Beauty',
-  components: { card },
+  components: {
+    card
+  //  actool
+  },
   props: {
     pages: {
       type: Object,
@@ -36,7 +40,7 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const cardData = reactive([])
+    const cardData: IData[] = reactive([])
     const reload = ref(true)
     const page = computed(() => props.pages)
 
@@ -45,7 +49,7 @@ export default defineComponent({
       // reload: reload.value
     })
 
-    ipcRenderer.on(page.value.name + '-reply', (event, arg) => {
+    ipcRenderer.on(page.value.name + '-reply', (event, arg: IData) => {
       // console.log(arg)
       if (arg) {
         cardData.push(arg)

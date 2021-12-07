@@ -151,33 +151,31 @@ async function createWindow () {
   })
 
   // 隐藏菜单栏
-  // mainWindow.removeMenu();
+  win.removeMenu()
 
   // 托盘
-  const root = join(__dirname, '../')
-  console.log(root)
-  const image = nativeImage.createFromPath(join(root, './build/icons/16x16.png'))
-  const tray = new Tray(image.resize({ width: 16, height: 16 }))
-  const contextMenu = Menu.buildFromTemplate([
-    { label: '打开', type: 'radio', click: () => onChangeTrayMenu('show') },
-    { label: '退出', type: 'radio', click: () => onChangeTrayMenu('quit') },
-    { label: 'Item3', type: 'radio', checked: true }
-  ])
-  tray.setToolTip('desktop-tools') // 托盘hover文本
-  tray.setContextMenu(contextMenu) // 托盘菜单
+  // const image = nativeImage.createFromPath(join(__dirname, '16x16.png'))
+  // const tray = new Tray(image.resize({ width: 16, height: 16 }))
+  // const contextMenu = Menu.buildFromTemplate([
+  //   { label: '打开', type: 'radio', click: () => onChangeTrayMenu('show') },
+  //   { label: '退出', type: 'radio', click: () => onChangeTrayMenu('quit') },
+  //   { label: 'Item3', type: 'radio', checked: true }
+  // ])
+  // tray.setToolTip('desktop-tools') // 托盘hover文本
+  // tray.setContextMenu(contextMenu) // 托盘菜单
 
-  function onChangeTrayMenu (type:string) {
-    switch (type) {
-      case 'show':
-        win.show()
-        break
-      case 'quit':
-        app.quit()
-        break
-      default:
-        break
-    }
-  }
+  // function onChangeTrayMenu (type:string) {
+  //   switch (type) {
+  //     case 'show':
+  //       win.show()
+  //       break
+  //     case 'quit':
+  //       app.quit()
+  //       break
+  //     default:
+  //       break
+  //   }
+  // }
 
   ipcMain.on('windowTool', (event, content) => {
     if (content === 'min') {

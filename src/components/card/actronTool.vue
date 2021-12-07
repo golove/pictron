@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import { ipcRenderer } from 'electron'
 import fs from 'fs'
 import { join } from 'path'
@@ -87,14 +87,7 @@ export default defineComponent({
           classify: actool.value.classify
         })
         ipcRenderer.on('download-reply', (event, arg) => {
-          // const Tm = setTimeout(() => {
-          //   actool.value.download = arg
-          //   clearTimeout(Tm)
-          // }, 2000)
-          // actool.value.download = arg
-
           actool.value.download = arg
-
           console.log('download:' + arg)
         })
       } else {
@@ -105,6 +98,25 @@ export default defineComponent({
         // spawn('open_xdg', join(os.homedir(), 'Pictures/' + actool.value.title))
       }
     }
+
+    onMounted(() => {
+      if (actool.value.download) {
+        fs.opendir(join(os.homedir(), 'Pictures/' + actool.value.title), (err, dir) => {
+          if (err) {
+            downloadflag.value = false
+            ipcRenderer.send('changeActool', {
+              url: actool.value.url,
+              actName: 'download',
+              classify: actool.value.classify
+            })
+            ipcRenderer.on('download-reply', (event, arg) => {
+              actool.value.download = arg
+              console.log('download:' + arg)
+            })
+          }
+        })
+      }
+    })
 
     function deleteMethod () {
       actool.value.deleted = !actool.value.deleted

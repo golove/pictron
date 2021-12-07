@@ -11,7 +11,7 @@ module.exports = {
         appId: 'com.golove.pictron',
         copyright: 'copyright 2021 golove',
         dmg: {
-          icon: 'build/icons/icon.icns',
+          icon: 'public/icons/icon.icns',
           contents: [
             {
               x: 192,
